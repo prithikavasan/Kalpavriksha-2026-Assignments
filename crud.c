@@ -11,6 +11,15 @@ struct User{
     int age;
 };
 
+bool isValidName(char name[]){
+    for(int i=0;name[i]!='\0';i++){
+        if(name[i]==','){
+            return false;
+        }
+    }
+    return true;
+}
+
 int isIdExist(int id){
     FILE *file = fopen(FILE_NAME,"r");
     struct User user;
@@ -49,7 +58,11 @@ void createUser(){
     printf("Enter Name: ");
     fgets(user.name, sizeof(user.name), stdin);
     user.name[strcspn(user.name, "\n")]='\0';
-    
+
+    if(!isValidName(user.name)){
+        printf("Invalid name.\n");
+        return;
+    }
     printf("Enter Age: ");
     scanf("%d", &user.age);
     
@@ -90,6 +103,7 @@ void updateUser(){
     FILE *file;
     FILE *temp;
     struct User user;
+    char newName[50];
     int found=0;
     int searchId;
     printf("Enter ID to Update: ");
@@ -112,9 +126,15 @@ void updateUser(){
             found=1;
             getchar();
             printf("Enter new name: ");
-            fgets(user.name, sizeof(user.name),stdin);
-            user.name[strcspn(user.name, "\n")]='\0';
+            fgets(newName, sizeof(newName),stdin);
+            newName[strcspn(newName, "\n")]='\0';
             
+            if(!isValidName(newName)){
+                printf("Invalid Name.\n");
+            }
+            else{
+                strcpy(user.name, newName);
+            }
             printf("Enter new age: ");
             scanf("%d",&user.age);
         }
@@ -183,7 +203,12 @@ int main(){
         printf("5. Exit\n");
         printf("=========================\n");
         printf("Enter your choice: ");
-        scanf("%d",&choice);
+        
+        if(scanf("%d",&choice)!=1){
+            printf("Invalid choice. Please enter a number.\n");
+            while(getchar()!='\n');
+            continue;
+        }
         switch(choice){
             case 1:
                 createUser();
