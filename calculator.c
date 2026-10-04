@@ -140,5 +140,10 @@ int main(){
             return 0;
         }
     }
+    if(topNumber!=0){
+        printf("Error: Invalid expression.\n");
+        return 0;
+    }
     printf("%d\n", stackNumber[topNumber]);
+    return 0;
 }
