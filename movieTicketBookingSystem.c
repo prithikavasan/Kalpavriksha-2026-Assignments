@@ -6,10 +6,16 @@ int main(){
     const int recliner = 400;
     
     char name[50];
-    scanf("%49s",name);
+    if(scanf("%49s",name)!=1){
+        printf("Invalid name.\n");
+        return 1;
+    }
     
     int ticketsCount;
-    scanf("%d",&ticketsCount);
+    if(scanf("%d",&ticketsCount)!=1){
+        printf("Invalid ticket count\n");
+        return 1;
+    }
     
     if(ticketsCount<1 || ticketsCount>20){
         printf("Invalid ticket count\n");
@@ -17,7 +23,10 @@ int main(){
     }
     
     int ticketCategory;
-    scanf("%d", &ticketCategory);
+    if(scanf("%d", &ticketCategory)!=1){
+        printf("Invalid ticket category\n");
+        return 1;
+    }
     
     int ticketPrice;
     char category[50];
